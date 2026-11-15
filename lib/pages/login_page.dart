@@ -45,6 +45,10 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "Enter Username",
                         labelText: "Username",
                       ),
+                      onChanged: (value) {
+                        name = value;
+                        setState(() {});
+                      },
                     ),
 
                     TextFormField(
@@ -53,26 +57,34 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "Enter Password",
                         labelText: "Password",
                       ),
-                      onChanged: (value) {
-                        name = value;
-                        setState(() {});
-                      },
                     ),
                     SizedBox(height: 20.0),
-                    AnimatedContainer(
-                      duration: Duration(seconds: 1),
-                      width: 150,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.deepPurple,
-                        borderRadius: BorderRadius.circular(
-                          changeButton ? 50 : 8,
+                    InkWell(
+                      onTap: () async {
+                        setState(() {
+                          changeButton = true;
+                        });
+                        await Future.delayed(Duration(seconds: 1));
+                        await Navigator.pushNamed(context, '/home');
+                        setState(() {
+                          changeButton = false;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 1),
+                        width: 150,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.deepPurple,
+                          borderRadius: BorderRadius.circular(
+                            changeButton ? 50 : 8,
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        'Login',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        child: Text(
+                          'Login',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
                       ),
                     ),
                     // ElevatedButton(

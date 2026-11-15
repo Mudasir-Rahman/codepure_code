@@ -1,4 +1,5 @@
 import 'package:codepure_code/pages/login_page.dart';
+import 'package:codepure_code/pages/home_page.dart';
 import 'package:codepure_code/routes/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: PageRoutes.loginPage == '/login' ? LoginPage() : null,
+      debugShowCheckedModeBanner: false,
+
+      initialRoute: PageRoutes.loginPage,
+
+      routes: {
+        PageRoutes.loginPage: (context) => LoginPage(),
+        PageRoutes.homePage: (context) => HomePage(),
+      },
     );
   }
 }

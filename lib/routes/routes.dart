@@ -1,4 +1,4 @@
 class PageRoutes {
-  static String loginPage = '/login';
-  static String homePage = '/home';
+  static const String loginPage = '/login';
+  static const String homePage = '/home';
 }

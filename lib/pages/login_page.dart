@@ -1,3 +1,4 @@
+import 'package:codepure_code/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -85,7 +86,10 @@ class _LoginPageState extends State<LoginPage> {
 
                               if (!mounted) return;
 
-                              Navigator.pushNamed(context, '/home');
+                              Navigator.pushNamed(context, PageRoutes.homePage);
+                              setState(() {
+                                changeButton = false;
+                              });
                             },
                       child: AnimatedContainer(
                         duration: Duration(milliseconds: 400),

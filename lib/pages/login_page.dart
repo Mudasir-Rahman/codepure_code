@@ -9,6 +9,23 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String name = '';
   bool changeButton = false;
+  final formKey = GlobalKey<FormState>();
+  moveToHome(BuildContext context) async {
+    if (formKey.currentState!.validate()) {
+      setState(() {
+        changeButton = true;
+      });
+
+      await Future.delayed(Duration(milliseconds: 1000));
+
+      if (!mounted) return;
+
+      Navigator.pushNamed(context, PageRoutes.homePage);
+      setState(() {
+        changeButton = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,76 +62,81 @@ class _LoginPageState extends State<LoginPage> {
 
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-                child: Column(
-                  children: [
-                    // Username
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Enter Username",
-                        labelText: "Username",
-                      ),
-                      onChanged: (value) {
-                        setState(() {
-                          name = value;
-                        });
-                      },
-                    ),
-
-                    // Password
-                    TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: "Enter Password",
-                        labelText: "Password",
-                      ),
-                    ),
-
-                    SizedBox(height: 20),
-
-                    // Animated Login Button
-                    InkWell(
-                      onTap: changeButton
-                          ? null
-                          : () async {
-                              setState(() {
-                                changeButton = true;
-                              });
-
-                              await Future.delayed(
-                                Duration(milliseconds: 1000),
-                              );
-
-                              if (!mounted) return;
-
-                              Navigator.pushNamed(context, PageRoutes.homePage);
-                              setState(() {
-                                changeButton = false;
-                              });
-                            },
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
-                        width: changeButton ? 40 : 150,
-                        height: 40,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.deepPurple,
-                          borderRadius: BorderRadius.circular(
-                            changeButton ? 50 : 8,
-                          ),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      // Username
+                      TextFormField(
+                        decoration: InputDecoration(
+                          hintText: "Enter Username",
+                          labelText: "Username",
                         ),
-                        child: changeButton
-                            ? Icon(Icons.done, color: Colors.white)
-                            : Text(
-                                'Login',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Username cannot be empty';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          setState(() {
+                            name = value;
+                          });
+                        },
                       ),
-                    ),
-                  ],
+
+                      // Password
+                      TextFormField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          hintText: "Enter Password",
+                          labelText: "Password",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Password cannot be empty';
+                          } else if (value.length < 6) {
+                            return 'Password length should be at least 6';
+                          }
+                          return null;
+                        },
+                      ),
+
+                      SizedBox(height: 20),
+
+                      // Animated Login Button
+                      InkWell(
+                        onTap: changeButton
+                            ? null
+                            : () {
+                                moveToHome(context);
+                              },
+
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 400),
+                          curve: Curves.easeInOut,
+                          width: changeButton ? 40 : 150,
+                          height: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.deepPurple,
+                            borderRadius: BorderRadius.circular(
+                              changeButton ? 50 : 8,
+                            ),
+                          ),
+                          child: changeButton
+                              ? Icon(Icons.done, color: Colors.white)
+                              : Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

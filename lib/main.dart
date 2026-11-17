@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      initialRoute: PageRoutes.loginPage,
+      initialRoute: PageRoutes.homePage,
 
       routes: {
         PageRoutes.loginPage: (context) => LoginPage(),

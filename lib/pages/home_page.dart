@@ -6,12 +6,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Codepure Code")),
       body: Center(
         child: Text(
           'Welcome to learning Flutter!',
           style: TextStyle(fontSize: 24),
         ),
       ),
+      // drawer: ,
     );
   }
 }

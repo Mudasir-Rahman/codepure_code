@@ -8,9 +8,11 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text("Codepure Code")),
       body: Center(
-        child: Text(
-          'Welcome to learning Flutter!',
-          style: TextStyle(fontSize: 24),
+        child: Container(
+          child: Text(
+            'Welcome to learning Flutter!',
+            style: TextStyle(fontSize: 24),
+          ),
         ),
       ),
       // drawer: ,

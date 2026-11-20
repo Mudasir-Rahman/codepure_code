@@ -7,7 +7,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Codepure Code")),
+      appBar: AppBar(
+        title: Text("Codepure Code"),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+      ),
       body: Center(
         child: Container(
           child: Text(

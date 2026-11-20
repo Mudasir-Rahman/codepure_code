@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MyDrawar extends StatelessWidget {
+class MyDrawar extends StatefulWidget {
   const MyDrawar({super.key});
 
+  @override
+  State<MyDrawar> createState() => _MyDrawarState();
+}
+
+class _MyDrawarState extends State<MyDrawar> {
   @override
   Widget build(BuildContext context) {
     const accentColor = Color(0xFF6750A4);
@@ -77,16 +82,22 @@ class MyDrawar extends StatelessWidget {
                     title: 'Home',
                     selected: true,
                     accentColor: accentColor,
+                    onTap: () {},
                   ),
                   _DrawerItem(
                     icon: CupertinoIcons.profile_circled,
                     title: 'Profile',
                     accentColor: accentColor,
+                    selected: false,
+                    onTap: () {},
                   ),
                   _DrawerItem(
                     icon: CupertinoIcons.mail,
                     title: 'Email Me',
                     accentColor: accentColor,
+
+                    selected: false,
+                    onTap: () {},
                   ),
                 ],
               ),
@@ -112,12 +123,14 @@ class _DrawerItem extends StatelessWidget {
     required this.title,
     required this.accentColor,
     this.selected = false,
+    this.onTap,
   });
 
   final IconData icon;
   final String title;
   final Color accentColor;
   final bool selected;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +149,7 @@ class _DrawerItem extends StatelessWidget {
             fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
           ),
         ),
+        onTap: onTap,
       ),
     );
   }
